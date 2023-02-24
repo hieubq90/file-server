@@ -1,0 +1,10 @@
+basePath: /api
+info:
+  contact:
+    email: hieubq90@gmail.com
+    name: Bùi Quang Hiếu
+  description: This is an API for File Server Application
+  title: File Management Service
+  version: "1.0"
+paths: {}
+swagger: "2.0"

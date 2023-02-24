@@ -1,0 +1,14 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is an API for File Server Application",
+        "title": "File Management Service",
+        "contact": {
+            "name": "Bùi Quang Hiếu",
+            "email": "hieubq90@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "paths": {}
+}

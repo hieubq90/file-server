@@ -10,6 +10,14 @@ import (
 	"syscall"
 )
 
+// @title File Management Service
+// @version 1.0
+// @description This is an API for File Server Application
+
+// @contact.name Bùi Quang Hiếu
+// @contact.email hieubq90@gmail.com
+
+// @BasePath /api
 func main() {
 	// Khởi tạo kết nối CSDL
 	if err := database.Connect(); err != nil {
