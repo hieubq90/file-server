@@ -1,0 +1,8 @@
+server:
+  name: File Management Service
+  endpoint: 0.0.0.0:3001
+minio:
+  endpoint: 127.0.0.1:9000
+  access: 123456
+  secret: 123456
+
