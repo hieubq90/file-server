@@ -1,4 +1,20 @@
 basePath: /api
+definitions:
+  presenter.FileObject:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  presenter.ResponseHTTP:
+    properties:
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
 info:
   contact:
     email: hieubq90@gmail.com
@@ -6,5 +22,55 @@ info:
   description: This is an API for File Server Application
   title: File Management Service
   version: "1.0"
-paths: {}
+paths:
+  /{project}/{folder}/files:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Allow upload single or multiple file
+      parameters:
+      - description: Project Name
+        in: path
+        name: project
+        required: true
+        type: string
+      - description: Folder Name
+        in: path
+        name: folder
+        required: true
+        type: string
+      - description: Files
+        in: formData
+        name: files
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/presenter.ResponseHTTP'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/presenter.FileObject'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/presenter.ResponseHTTP'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/presenter.ResponseHTTP'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/presenter.ResponseHTTP'
+      summary: Upload file
+      tags:
+      - files
 swagger: "2.0"

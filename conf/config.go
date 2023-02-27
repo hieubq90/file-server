@@ -41,3 +41,8 @@ func GetServerConfig() map[string]string {
 	setting := viper.GetStringMapString("server")
 	return setting
 }
+
+func GetMinioConfig() map[string]string {
+	setting := viper.GetStringMapString("minio")
+	return setting
+}
