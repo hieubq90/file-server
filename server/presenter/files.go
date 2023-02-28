@@ -8,7 +8,7 @@ type FileObject struct {
 	Name string `json:"name"`
 }
 
-func FileSuccessResponse(data *[]FileObject) *fiber.Map {
+func FileUploadSuccessResponse(data *[]FileObject) *fiber.Map {
 	return &fiber.Map{
 		"status": true,
 		"data":   data,

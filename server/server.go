@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"file-server/conf"
 	_ "file-server/docs"
+	"file-server/mio"
 	"file-server/server/routes"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
@@ -36,6 +37,7 @@ func InitServer() {
 	serverConfig := conf.GetServerConfig()
 	app = fiber.New(fiber.Config{
 		AppName:                      serverConfig["name"],
+		UnescapePath:                 true,
 		BodyLimit:                    50 * 1024 * 1024,
 		DisablePreParseMultipartForm: false,
 		JSONEncoder:                  json.Marshal,
@@ -50,6 +52,12 @@ func InitServer() {
 	app.Use(logger.New())
 	app.Use(recover.New())
 
+	app.Hooks().OnListen(func() error {
+		minioConfig := conf.GetMinioConfig()
+		err := mio.CreateBucket(minioConfig["bucket"])
+		return err
+	})
+
 	setupRoutes()
 }
 
@@ -60,13 +68,6 @@ func setupRoutes() {
 
 	app.Get("/swagger/*", swagger.HandlerDefault) // default
 	api := app.Group("/api")
-
-	api.Get("/", func(c *fiber.Ctx) error {
-		c.JSON(fiber.Map{
-			"message": "🐣",
-		})
-		return c.Next()
-	})
 
 	routes.FilesRouter(api)
 }

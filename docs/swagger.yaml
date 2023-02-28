@@ -23,6 +23,49 @@ info:
   title: File Management Service
   version: "1.0"
 paths:
+  /{project}/{folder}/{filename}:
+    get:
+      consumes:
+      - multipart/form-data
+      description: Allow download
+      parameters:
+      - description: Project Name
+        in: path
+        name: project
+        required: true
+        type: string
+      - description: Folder Name
+        in: path
+        name: folder
+        required: true
+        type: string
+      - description: File Name
+        in: path
+        name: filename
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "301":
+          description: Moved Permanently
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/presenter.ResponseHTTP'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/presenter.ResponseHTTP'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/presenter.ResponseHTTP'
+      summary: Download file
+      tags:
+      - files
   /{project}/{folder}/files:
     post:
       consumes:
@@ -66,8 +109,8 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/presenter.ResponseHTTP'
-        "503":
-          description: Service Unavailable
+        "500":
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/presenter.ResponseHTTP'
       summary: Upload file

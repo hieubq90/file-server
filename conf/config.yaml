@@ -5,8 +5,7 @@ minio:
   endpoint: 127.0.0.1:9000
   access: HA0gg6NDaeyAhFt0
   secret: WyLZhAoRXstNrU6qvZu0licVB2E6FkC6
-mongo:
-  endpoint: 127.0.0.1:27001
+  bucket: file-server
 
 
 
